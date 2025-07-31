@@ -29,7 +29,18 @@ const getAllTasksFromDB = async () => {
   return result;
 };
 
+const getSingleTaskFromDB = async (taskId: string) => {
+  const result = await Task.findById(taskId).populate('userId');
+
+  if (!result) {
+    throw new AppError(status.NOT_FOUND, 'Task is not found');
+  }
+
+  return result;
+};
+
 export const TaskServices = {
   createTaskIntoDB,
   getAllTasksFromDB,
+  getSingleTaskFromDB,
 };
