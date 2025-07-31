@@ -2,8 +2,9 @@ import status from 'http-status';
 import AppError from '../../errors/AppError';
 import { TLoginUser, TUser } from './user.interface';
 import { User } from './user.model';
-import { createToken } from './user.utils';
+import { createToken, verifyToken } from './user.utils';
 import config from '../../config';
+import bcrypt from 'bcrypt';
 
 const createUserIntoDB = async (payload: TUser) => {
   const user = await User.create(payload);
@@ -46,7 +47,54 @@ const loginUser = async (payload: TLoginUser) => {
   };
 };
 
+const resetPassword = async (
+  email: string,
+  newPassword: string,
+  token: string,
+) => {
+  // check the user is exist or not
+  const user = await User.isUserExistsByEmail(email);
+
+  if (!user) {
+    throw new AppError(status.NOT_FOUND, 'User not found');
+  }
+
+  // Check whether the token is valid or not
+  const decoded = verifyToken(token, config.jwt_access_secret as string);
+
+  if (email !== decoded?.email) {
+    throw new AppError(status.FORBIDDEN, ' Yor are forbidden');
+  }
+
+  // Hash the new password before storing to the DB
+  const newHashedPassword = await bcrypt.hash(
+    newPassword,
+    Number(config.bcrypt_salt_round),
+  );
+
+  const result = await User.findOneAndUpdate(
+    {
+      email: decoded.email,
+    },
+    {
+      password: newHashedPassword,
+    },
+    {
+      new: true,
+    },
+  );
+
+  if (!result) {
+    throw new AppError(status.NOT_FOUND, 'User not found!');
+  }
+
+  const { _id, name, email: userEmail } = result;
+
+  return { _id, name, email: userEmail };
+};
+
 export const UserServices = {
   createUserIntoDB,
   loginUser,
+  resetPassword,
 };
