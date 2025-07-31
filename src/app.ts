@@ -7,21 +7,23 @@ const app: Application = express();
 
 // Parser / Middleware
 app.use(express.json());
-app.use(cors({
-  origin: ["http://localhost:5000"]
-}));
+app.use(
+  cors({
+    origin: ['http://localhost:5000'],
+  }),
+);
 
 // Application Routes
 app.use('/api/v1', router);
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello Task Management App! 😊');
+});
 
 // Not found route
 app.use(notFound);
 
 // Global Error Handler
 app.use(globalErrorHandler);
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello Task Management App! 😊');
-});
 
 export default app;
