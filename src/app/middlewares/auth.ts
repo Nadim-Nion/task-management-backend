@@ -24,11 +24,11 @@ const auth = () => {
     ) as JwtPayload;
 
     // Check whether the user has the permission to access the resource
-    const { userId} = decoded;
+    const { email} = decoded;
     // console.log('decoded:', decoded);
 
     // check the user is exist or not
-    const user = await User.isUserExistsByCustomId(userId);
+    const user = await User.isUserExistsByEmail(email);
     // console.log('user:', user);
 
     if (!user) {

@@ -3,7 +3,7 @@ import { TUser, UserModelType } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 
-const userSchema = new Schema<TUser,UserModelType>(
+const userSchema = new Schema<TUser, UserModelType>(
   {
     name: {
       type: String,
@@ -44,8 +44,8 @@ userSchema.post('save', function (doc, next) {
 });
 
 // Check the user is existed or not
-userSchema.statics.isUserExistsByCustomId = async function (id: string) {
-  return await User.findOne({ id }).select('+password');
+userSchema.statics.isUserExistsByEmail = async function (email: string) {
+  return await User.findOne({ email }).select('+password');
 };
 
 // Check the password is matched or not
@@ -56,5 +56,4 @@ userSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
-
-export const User = model<TUser,UserModelType>('User', userSchema);
+export const User = model<TUser, UserModelType>('User', userSchema);
