@@ -12,10 +12,22 @@ const createTask = catchAsync(async (req, res) => {
     statusCode: status.CREATED,
     success: true,
     message: 'Task is created successfully',
+    data: result,
+  });
+});
+
+const getAllTasks = catchAsync(async (req, res) => {
+  const result = await TaskServices.getAllTasksFromDB();
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: 'All Tasks are retrieved successfully',
     data: result
-  })
+  });
 });
 
 export const TaskControllers = {
   createTask,
+  getAllTasks,
 };

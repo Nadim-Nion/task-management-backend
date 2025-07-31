@@ -13,4 +13,6 @@ router.post(
   TaskControllers.createTask,
 );
 
+router.get('/', TaskControllers.getAllTasks);
+
 export const TaskRoutes = router;

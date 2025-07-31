@@ -23,6 +23,7 @@ const taskSchema = new Schema<TTask>({
   },
   userId: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
   },
 });
 

@@ -24,6 +24,12 @@ const createTaskIntoDB = async (payload: TTask, token: string) => {
   return result;
 };
 
+const getAllTasksFromDB = async () => {
+  const result = await Task.find().populate('userId');
+  return result;
+};
+
 export const TaskServices = {
   createTaskIntoDB,
+  getAllTasksFromDB,
 };
