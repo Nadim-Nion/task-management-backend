@@ -24,4 +24,6 @@ router.patch(
   TaskControllers.updateTask,
 );
 
+router.delete('/:taskId', auth(), TaskControllers.deleteTask);
+
 export const TaskRoutes = router;

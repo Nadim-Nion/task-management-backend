@@ -43,10 +43,7 @@ const getSingleTask = catchAsync(async (req, res) => {
 const updateTask = catchAsync(async (req, res) => {
   const { taskId } = req.params;
 
-  const result = await TaskServices.updateTaskIntoDB(
-    taskId,
-    req.body,
-  );
+  const result = await TaskServices.updateTaskIntoDB(taskId, req.body);
 
   sendResponse(res, {
     statusCode: status.OK,
@@ -56,9 +53,22 @@ const updateTask = catchAsync(async (req, res) => {
   });
 });
 
+const deleteTask = catchAsync(async (req, res) => {
+  const { taskId } = req.params;
+  const result = await TaskServices.deleteTaskFromDB(taskId);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: 'Task is deleted successfully',
+    data: result,
+  });
+});
+
 export const TaskControllers = {
   createTask,
   getAllTasks,
   getSingleTask,
   updateTask,
+  deleteTask,
 };

@@ -48,9 +48,19 @@ const updateTaskIntoDB = async (taskId: string, payload: Partial<TTask>) => {
   return result;
 };
 
+const deleteTaskFromDB = async (taskId: string) => {
+  const result = await Task.findByIdAndDelete(taskId);
+  if (!result) {
+    throw new AppError(status.NOT_FOUND, 'Task is not found');
+  }
+
+  return result;
+};
+
 export const TaskServices = {
   createTaskIntoDB,
   getAllTasksFromDB,
   getSingleTaskFromDB,
   updateTaskIntoDB,
+  deleteTaskFromDB,
 };
