@@ -40,8 +40,25 @@ const getSingleTask = catchAsync(async (req, res) => {
   });
 });
 
+const updateTask = catchAsync(async (req, res) => {
+  const { taskId } = req.params;
+
+  const result = await TaskServices.updateTaskIntoDB(
+    taskId,
+    req.body,
+  );
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: 'Task is updated successfully',
+    data: result,
+  });
+});
+
 export const TaskControllers = {
   createTask,
   getAllTasks,
   getSingleTask,
+  updateTask,
 };

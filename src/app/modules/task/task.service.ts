@@ -39,8 +39,18 @@ const getSingleTaskFromDB = async (taskId: string) => {
   return result;
 };
 
+const updateTaskIntoDB = async (taskId: string, payload: Partial<TTask>) => {
+  const result = await Task.findByIdAndUpdate(taskId, payload, {
+    new: true,
+    runValidators: true,
+  });
+
+  return result;
+};
+
 export const TaskServices = {
   createTaskIntoDB,
   getAllTasksFromDB,
   getSingleTaskFromDB,
+  updateTaskIntoDB,
 };

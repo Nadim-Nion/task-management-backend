@@ -10,6 +10,16 @@ const createTaskValidationSchema = z.object({
   }),
 });
 
+const updateTaskValidationSchema = z.object({
+  body: z.object({
+    taskCategory: z.enum(taskCategories).optional(),
+    taskStatus: z.enum(taskStatuses).optional(),
+    details: z.string().min(1, 'Details are required').optional(),
+    endDate: z.coerce.date({ message: 'Invalid date format' }).optional(),
+  }),
+});
+
 export const TaskValidations = {
   createTaskValidationSchema,
+  updateTaskValidationSchema,
 };

@@ -17,4 +17,11 @@ router.get('/', TaskControllers.getAllTasks);
 
 router.get('/:taskId', auth(), TaskControllers.getSingleTask);
 
+router.patch(
+  '/:taskId',
+  auth(),
+  validateRequest(TaskValidations.updateTaskValidationSchema),
+  TaskControllers.updateTask,
+);
+
 export const TaskRoutes = router;
