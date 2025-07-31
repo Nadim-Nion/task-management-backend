@@ -2,6 +2,7 @@ import { Model } from 'mongoose';
 
 /* eslint-disable no-unused-vars */
 export type TUser = {
+  _id?: string; // optional
   name: string;
   email: string;
   password: string;

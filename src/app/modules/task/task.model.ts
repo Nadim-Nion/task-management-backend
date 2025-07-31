@@ -3,26 +3,26 @@ import { TTask } from './task.interface';
 import { taskCategories, taskStatuses } from './task.constant';
 
 const taskSchema = new Schema<TTask>({
-  //   _id: {
-  //     type: Schema.Types.ObjectId,
-  //   },
   taskCategory: {
     type: String,
     enum: taskCategories,
-    required: true,
+    required: [true, 'Task Category is required'],
   },
   taskStatus: {
     type: String,
     enum: taskStatuses,
-    required: true,
+    required: [true, 'Task Status is required'],
   },
   details: {
     type: String,
-    required: true,
+    required: [true, 'Task Details are required'],
   },
   endDate: {
     type: Date,
-    required: true,
+    required: [true, 'Task End Date is required'],
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
   },
 });
 
