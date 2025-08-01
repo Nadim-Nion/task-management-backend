@@ -22,7 +22,7 @@ This is the backend server of a **Task Management Web Application** built with *
 ## project Resources
 
 - Backend Repository: [Github](https://github.com/Nadim-Nion/task-management-backend)
-- Live Deployment URL: [Vercel](https://your-live-site-link.com)
+- Live Deployment URL: [Vercel](https://task-management-backend-teal-three.vercel.app/)
 
 ---
 
