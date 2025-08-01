@@ -15,7 +15,7 @@ router.post(
 
 router.get('/', TaskControllers.getAllTasks);
 
-router.get('/:taskId', auth(), TaskControllers.getSingleTask);
+router.get('/:taskId', TaskControllers.getSingleTask);
 
 router.patch(
   '/:taskId',
